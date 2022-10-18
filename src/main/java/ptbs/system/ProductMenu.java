@@ -2,7 +2,7 @@ package ptbs.system;
 
 public interface ProductMenu {
 
-	Person person;
+	Person person = null;
 
 	public abstract void showMenu();
 
