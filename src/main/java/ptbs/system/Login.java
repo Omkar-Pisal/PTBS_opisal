@@ -1,92 +1,62 @@
 package ptbs.system;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.Exception;
+import java.util.Scanner;
 
+public class Login  {
 
-public class Login extends JFrame implements ActionListener {
+    Login(){}
+    String[] details = new String[2];
+    String username = "";
+    public boolean HasAccess() {
+        boolean output = false;
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Login Window :");
+        System.out.println("Enter your username:");
+        username = reader.nextLine();
+        System.out.println("Enter Password:");
+        String password = reader.nextLine();
+        String exactPassword = "";
+        ReadConfig readConfig = new ReadConfig();
+        try {
+            details = readConfig.getPropValues(username);
+            exactPassword = details[0];
+        }
+        catch(Exception e1){
+            System.out.println(e1);
+        }
 
-    //initialize button, panel, label, and text field
-    JButton b1;
-    JPanel newPanel;
-    JLabel userLabel, passLabel;
-    final JTextField  textField1, textField2;
+        if (password.equals(exactPassword)) {
+            if( details[1] == "Buyer")
+            {
+                output = true;
 
-    public Login() {
+            }
+            else if(details[1] == "Seller")
+            {
+                output = true;
 
-        //create label for username
-        userLabel = new JLabel();
-        userLabel.setText("Username");      //set label value for textField1
+            }
 
-        //create text field to get username from the user
-        textField1 = new JTextField(15);    //set length of the text
+        } else {
+            System.out.println("Please Enter Valid Username or Password");
+        }
 
-        //create label for password
-        passLabel = new JLabel();
-        passLabel.setText("Password");      //set label value for textField2
+        return output;
 
-        //create text field to get password from the user
-        textField2 = new JPasswordField(15);    //set length for the password
-
-        //create submit button
-        b1 = new JButton("SUBMIT"); //set label to button
-
-        //create panel to put form elements
-        newPanel = new JPanel(new GridLayout(3, 1));
-        newPanel.add(userLabel);    //set username label to panel
-        newPanel.add(textField1);   //set text field to panel
-        newPanel.add(passLabel);    //set password label to panel
-        newPanel.add(textField2);   //set text field to panel
-        newPanel.add(b1);           //set button to panel
-
-        //set border to panel
-        add(newPanel, BorderLayout.CENTER);
-
-        //perform action on button click
-        b1.addActionListener(this);     //add action listener to button
-        setTitle("LOGIN FORM");         //set title to the login form
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String userValue = textField1.getText();        //get user entered username from the textField1
-        String passValue = textField2.getText();        //get user entered pasword from the textField2
-
-        //check whether the credentials are authentic or not
-        if (userValue.equals("test1@gmail.com") && passValue.equals("test")) {  //if authentic, navigate user to a new page
-
-            //create instance of the NewPage
-            NewPage page = new NewPage();
-
-            //make page visible to the user
-            page.setVisible(true);
-
-            //create a welcome label and set it to the new page
-            JLabel wel_label = new JLabel("Welcome: "+userValue);
-            page.getContentPane().add(wel_label);
-        }
-        else{
-            //show error message
-            System.out.println("Please enter valid username and password");
-        }
-    }
-
-    public static void main(String arg[])
+    public Integer GetUserType()
     {
-        try
-        {
-            //create instance of the CreateLoginForm
-            Login form = new Login();
-            form.setSize(300,100);  //set size of the frame
-            form.setVisible(true);  //make form visible to the user
-        }
-        catch(Exception e)
-        {
-            //handle exception
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        if(details[1] == "Buyer")
+            return 0;
+        else
+            return 1;
     }
+
+    public String getUserName()
+    {
+        return username;
+    }
+
+
 }
