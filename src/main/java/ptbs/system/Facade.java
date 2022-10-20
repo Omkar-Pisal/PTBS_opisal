@@ -16,16 +16,6 @@ public class Facade {
 
 	private String userName;
 
-	public int login(Login login) {
-		boolean output = login.HasAccess();
-		if(output == true) {
-			userName = login.username;
-			return login.GetUserType();
-		}
-		else
-			System.exit(-1);
-		return -1;
-	}
 	public void startFacade(){
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("---------- PTBS System ----------");
@@ -41,15 +31,28 @@ public class Facade {
 		}
 	}
 
+
 	public void doLogin(){
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("HERE");
 		UserType = login(new Login()); // 0 buyer 1 seller
+		System.out.println("---------- Bridge Pattern + Factory Pattern ----------");
 		System.out.println("Welcome "UserType>0? "Buyer!":"Seller!");
 		System.out.println("Select from available Product Menu \n 1. Meat Product Menu \n 2. Produce Product Menu. " +
 				"\n Enter 1 or 2 based on above selection");
 		int selectProductType = scanner.nextInt();
 
+		callProductMenu(UserType,selectProductType);
+	}
+
+	public void callProductMenu(int UserType, int selectProductType){
+		if (selectProductType == 1) {
+			SelectProduct(new MeatProductMenu(), UserType, userName, selectProductType);
+		} else if (selectProductType == 2) {
+			SelectProduct(new ProduceProductMenu(), UserType, userName, selectProductType);
+		} else {
+			System.out.println("Please select from above given choices");
+			System.exit(-1);
+		}
 	}
 	public void createNewUser(){
 		Scanner scanner = new Scanner(System.in);
@@ -61,6 +64,17 @@ public class Facade {
 		String password = scanner.next();
 		createUser( new UserInfoItem(UserType, userName, password));
 		System.exit(0);
+	}
+
+	public int login(Login login) {
+		boolean output = login.HasAccess();
+		if(output == true) {
+			userName = login.username;
+			return login.GetUserType();
+		}
+		else
+			System.exit(-1);
+		return -1;
 	}
 
 	public void addTrading() {
@@ -100,7 +114,7 @@ public class Facade {
 
 	}
 
-	public Product SelectProduct() {
+	public Product SelectProduct(ProductMenu productMenu, int userType, String userName, int selectProductType) {
 		return null;
 	}
 

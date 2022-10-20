@@ -16,4 +16,5 @@ public interface ProductMenu {
 
 	public abstract void showComboxes();
 
+	public abstract void selectProduct(int userType);
 }
