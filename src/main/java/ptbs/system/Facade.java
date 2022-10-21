@@ -25,6 +25,8 @@ public class Facade {
 	private String userName;
 
 	public void startFacade(){
+		/*This is beging of program and facade pattern
+		* We are asking user to either login or Register*/
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("---------- PTBS System ----------");
 		System.out.println("Please select : 1. Login 2. Create New User");
@@ -41,6 +43,7 @@ public class Facade {
 
 
 	public void doLogin(){
+		/*This function logs-in user (buyer or seller) Also start of Bridge and Factory Pattern*/
 		Scanner scanner = new Scanner(System.in);
 		UserType = login(new Login()); // 0 buyer 1 seller
 		System.out.println("---------- Bridge Pattern + Factory Pattern ----------");
@@ -52,6 +55,7 @@ public class Facade {
 	}
 
 	public void callProductMenu(int UserType, int selectProductType){
+		/*This function shows user available products*/
 		Scanner scanner = new Scanner(System.in);
 		if (selectProductType == 1) {
 			SelectProduct(new MeatProductMenu(), UserType, userName, selectProductType);
@@ -74,6 +78,7 @@ public class Facade {
 	}
 
 	public void callOfferedProduct(){
+		/*THis fucnction lists all the offered prodcuts also begining of iterator and visitor pattern*/
 		System.out.println("---------- Iterator Pattern + Visitor Pattern ----------");
 		OfferingList offeringList = new OfferingList();
 		Iterator itr = offeringList.createIterator();
@@ -88,6 +93,7 @@ public class Facade {
 		}
 	}
 	public void createNewUser(){
+		/*This function will create new user as Buyer or Seller and upadte txt files accordingly*/
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Who Are You? :  0. Buyer 1. Seller");
 		UserType = scanner.nextInt();
@@ -135,6 +141,7 @@ public class Facade {
 	}
 
 	public void createUser(UserInfoItem userinfoItem) {
+		/*Creating user as buyer or seller and updatinf txt files*/
 		if(userinfoItem.type==0){
 			try(FileWriter fileWriter = new FileWriter("src/main/resources/BuyerInfo.txt",true);
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
