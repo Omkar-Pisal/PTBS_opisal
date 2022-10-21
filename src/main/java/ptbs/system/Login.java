@@ -10,7 +10,7 @@ public class Login  {
     public boolean HasAccess() {
         boolean output = false;
         Scanner reader = new Scanner(System.in);
-        System.out.println("Login Window :");
+        System.out.println("Please Login :");
         System.out.println("Enter your username:");
         username = reader.nextLine();
         System.out.println("Enter Password:");

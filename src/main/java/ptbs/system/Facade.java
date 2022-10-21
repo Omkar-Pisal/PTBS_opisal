@@ -1,5 +1,9 @@
 package ptbs.system;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +12,6 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Facade {
-
 	private int UserType;
 
 	private Product theSelectedProduct;
@@ -42,8 +45,7 @@ public class Facade {
 		UserType = login(new Login()); // 0 buyer 1 seller
 		System.out.println("---------- Bridge Pattern + Factory Pattern ----------");
 		System.out.println(UserType>0? "Welcome Seller!":"Welcome Buyer!");
-		System.out.println("Select from available Product Menu \n 1. Meat Product Menu \n 2. Produce Product Menu. " +
-				"\n Enter 1 or 2 based on above selection");
+		System.out.println("Select from available Product Menu 1. Meat Product Menu 2. Produce Product Menu.");
 		int selectProductType = scanner.nextInt();
 
 		callProductMenu(UserType,selectProductType);
@@ -56,11 +58,11 @@ public class Facade {
 		} else if (selectProductType == 2) {
 			SelectProduct(new ProduceProductMenu(), UserType, userName, selectProductType);
 		} else {
-			System.out.println("Please select from above given choices");
+			System.out.println("Invalid Choice!");
 			System.exit(-1);
 		}
 
-		System.out.println("Wish to see offered products: \n 1. Yes \n 2. No");
+		System.out.println("Wish to see offered products: 1. Yes  2. No");
 		int value1 = scanner.nextInt();
 		if(value1==1){
 			callOfferedProduct();
@@ -87,7 +89,7 @@ public class Facade {
 	}
 	public void createNewUser(){
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter the type of User: \n 0. Buyer \n 1. Seller");
+		System.out.println("Who Are You? :  0. Buyer 1. Seller");
 		UserType = scanner.nextInt();
 		System.out.println("Enter the UserName:");
 		String userName = scanner.next();
